@@ -20,6 +20,7 @@ class CreateAddressesTable extends Migration
             $table->string('postal');
             $table->string('house_no');
             $table->string('house_tel');
+            $table->foreignIdFor(\App\Models\User::class,'user_id');
             $table->timestamps();
         });
     }

@@ -17,6 +17,7 @@ class CreateShipmentsTable extends Migration
             $table->id();
             $table->dateTime('send_time');
             $table->enum('status', ['process', 'finish']);
+            $table->foreignIdFor(\App\Models\Shipment::class,'shipment_id');
             $table->timestamps();
         });
     }

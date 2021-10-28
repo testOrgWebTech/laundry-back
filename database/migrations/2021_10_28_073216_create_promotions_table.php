@@ -19,6 +19,7 @@ class CreatePromotionsTable extends Migration
             $table->integer('price_discount');
             $table->integer('percent_discount')->max(100);
             $table->dateTime('expired');
+            $table->foreignIdFor(\App\Models\Promotion::class,'promotion_id');
             $table->timestamps();
         });
     }

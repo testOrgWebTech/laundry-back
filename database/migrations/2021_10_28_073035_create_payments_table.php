@@ -17,6 +17,7 @@ class CreatePaymentsTable extends Migration
             $table->id();
             $table->dateTime('paid_time');
             $table->string('e_slip');
+            $table->foreignIdFor(\App\Models\Order::class,'order_id');
             $table->timestamps();
         });
     }

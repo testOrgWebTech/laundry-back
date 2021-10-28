@@ -20,6 +20,7 @@ class CreateOrdersTable extends Migration
             $table->string('expected_time');
             $table->string('price');
             $table->enum('status', ['waitPayment', 'paid', 'process', 'finish']);
+            $table->foreignIdFor(\App\Models\User::class,'user_id');
             $table->timestamps();
         });
     }
