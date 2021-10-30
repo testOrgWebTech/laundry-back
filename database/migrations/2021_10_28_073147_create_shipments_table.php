@@ -15,9 +15,9 @@ class CreateShipmentsTable extends Migration
     {
         Schema::create('shipments', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('send_time');
-            $table->enum('status', ['process', 'finish']);
-            $table->foreignIdFor(\App\Models\Shipment::class,'shipment_id');
+            $table->dateTime('send_time')->nullable();
+            $table->enum('status', ['inProcess', 'finish']);
+            $table->foreignIdFor(\App\Models\Order::class, 'order_id');
             $table->timestamps();
         });
     }

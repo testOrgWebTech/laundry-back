@@ -15,8 +15,8 @@ class CreatePaymentsTable extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('paid_time');
-            $table->string('e_slip');
+            $table->dateTime('paid_time')->nullable();
+            $table->string('e_slip')->nullable();
             $table->foreignIdFor(\App\Models\Order::class,'order_id');
             $table->timestamps();
         });

@@ -19,7 +19,7 @@ class CreateAddressesTable extends Migration
             $table->string('district');
             $table->string('postal');
             $table->string('house_no');
-            $table->string('house_tel');
+            $table->string('house_tel')->nullable();
             $table->foreignIdFor(\App\Models\User::class,'user_id');
             $table->timestamps();
         });

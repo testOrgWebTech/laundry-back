@@ -36,6 +36,7 @@ class OrderController extends Controller
         $order->finish_time = $request->finish_time;
         $order->expected_time = $request->expected_time;
         $order->status = $request->status;
+        $order->shipment = $request->shipment;
         $order->save();
         
         return ;

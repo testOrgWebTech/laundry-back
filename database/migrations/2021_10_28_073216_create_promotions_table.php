@@ -16,10 +16,10 @@ class CreatePromotionsTable extends Migration
         Schema::create('promotions', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('price_discount');
-            $table->integer('percent_discount')->max(100);
-            $table->dateTime('expired');
-            $table->foreignIdFor(\App\Models\Promotion::class,'promotion_id');
+            $table->integer('price_discount')->nullable();
+            $table->integer('percent_discount')->max(100)->nullable();
+            $table->dateTime('expired')->nullable();
+            $table->foreignIdFor(\App\Models\Order::class, 'order_id');
             $table->timestamps();
         });
     }

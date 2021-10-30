@@ -15,11 +15,12 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('start_time');
-            $table->dateTime('finish_time');
-            $table->string('expected_time');
+            $table->dateTime('start_time')->nullable();
+            $table->dateTime('finish_time')->nullable();
+            $table->string('expected_time')->nullable();
             $table->string('price');
-            $table->enum('status', ['waitPayment', 'paid', 'process', 'finish']);
+            $table->enum('status', ['waitPayment', 'paid', 'waitClothes', 'waitQuene', 'inProcess', 'finish']);
+            $table->enum('shipment', ['yes', 'no']);
             $table->foreignIdFor(\App\Models\User::class,'user_id');
             $table->timestamps();
         });
