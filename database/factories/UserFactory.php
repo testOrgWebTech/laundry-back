@@ -15,7 +15,7 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'role' => 'Owner'/*array_rand(['Owner', 'Customer'])*/,
+            'role' => 'owner'/*array_rand(['owner', 'customer'])*/,
             'first_name' => $this->faker->name(),
             'last_name' => $this->faker->name(),
             'tel' => null,

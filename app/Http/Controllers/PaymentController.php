@@ -19,6 +19,8 @@ class PaymentController extends Controller
         $payment = new Payment();
         $payment->paid_time = $request->paid_time;
         $payment->e_slip = $request->e_slip;
+        $payment->order_id = $request->order_id;
+        $payment->image_id = $request->image_id;
         $payment->save();
         
         return $payment;
@@ -28,6 +30,8 @@ class PaymentController extends Controller
         $payment = Payment::findOrFail($request->id);
         $payment->paid_time = $request->paid_time;
         $payment->e_slip = $request->e_slip;
+        $payment->order_id = $request->order_id;
+        $payment->image_id = $request->image_id;
         $payment->save();
 
         return $payment;

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePaymentsTable extends Migration
+class CreateImagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreatePaymentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('payments', function (Blueprint $table) {
+        Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('paid_time')->nullable();
-            $table->string('e_slip')->nullable();
-            $table->foreignIdFor(\App\Models\Order::class,'order_id');
-            $table->foreignIdFor(\App\Models\Image::class,'image_id');
+            $table->string('name');
+            $table->string('path')->nullable(true);
+            $table->foreignIdFor(\App\Models\Payment::class)->nullable(true);
             $table->timestamps();
+            $table->softDeletes();;
         });
     }
 
@@ -30,6 +30,6 @@ class CreatePaymentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('payments');
+        Schema::dropIfExists('images');
     }
 }

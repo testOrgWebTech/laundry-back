@@ -17,10 +17,11 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->dateTime('start_time')->nullable();
             $table->dateTime('finish_time')->nullable();
-            $table->string('expected_time')->nullable();
-            $table->string('price');
+            $table->string('expected_send_time')->nullable();
+            $table->string('expected_finish_time')->nullable();
+            $table->string('price')->nullable();
             $table->enum('status', ['waitPayment', 'paid', 'waitClothes', 'waitQuene', 'inProcess', 'finish']);
-            $table->enum('shipment', ['yes', 'no']);
+            $table->boolean('shipment');
             $table->foreignIdFor(\App\Models\User::class,'user_id');
             $table->timestamps();
         });

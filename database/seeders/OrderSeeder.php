@@ -19,9 +19,9 @@ class OrderSeeder extends Seeder
         $order->price = '40';
         $order->start_time = null;
         $order->finish_time = null;
-        $order->expected_time = null;
+        $order->expected_send_time = null;
         $order->status = 'waitPayment';
-        $order->shipment = 'yes';
+        $order->shipment = false;
         $order->user_id = 1;
         $order->save();
     }
