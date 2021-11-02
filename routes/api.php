@@ -26,3 +26,4 @@ Route::apiResource('shipments', \App\Http\Controllers\ShipmentController::class)
 Route::apiResource('promotions', \App\Http\Controllers\PromotionController::class);
 Route::post('login', [\App\Http\Controllers\UserController::class, 'login']);
 Route::post('upload-image', [\App\Http\Controllers\ImageController::class, 'store']);
+Route::post('cal-overall', [\App\Http\Controllers\OrderController::class, 'calOverall']);

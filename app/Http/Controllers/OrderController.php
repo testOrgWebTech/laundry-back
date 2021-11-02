@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use function PHPSTORM_META\map;
@@ -11,7 +12,7 @@ class OrderController extends Controller
 {
     public function index()
     {
-        return Order::with('user')->orderBy('updated_at', 'desc')->get();
+        return Order::with('user', 'payment.image')->orderBy('updated_at', 'desc')->get();
     }
 
     public function show($id)
@@ -26,9 +27,11 @@ class OrderController extends Controller
         $order->start_time = $request->start_time;
         $order->finish_time = $request->finish_time;
         $order->expected_send_time = $request->expected_send_time;
+        $order->expected_finish_time = $request->expected_finish_time;
         $order->shipment = $request->shipment;
         $order->status = 'waitPayment';
         $order->user_id = $request->user_id;
+        $order->weight = $request->weight;
         $order->save();
 
         return $order;
@@ -41,8 +44,10 @@ class OrderController extends Controller
         $order->start_time = $request->start_time;
         $order->finish_time = $request->finish_time;
         $order->expected_send_time = $request->expected_send_time;
+        $order->expected_finish_time = $request->expected_finish_time;
         $order->status = $request->status;
         $order->shipment = $request->shipment;
+        $order->weight = $request->weight;
         $order->save();
 
         return $this->index();
@@ -56,9 +61,28 @@ class OrderController extends Controller
         return $this->index();
     }
 
-    public function calExpectedTime($request)
+    public function calOverall(Request $request)
     {
-        $orders = Order::get();
-        
+        if ($request->weight == '13kg') {
+            $request['price'] = 40;
+        } else if ($request->weight == '15kg') {
+            $request['price'] = 50;
+        } else if ($request->weight == '17kg') {
+            $request['price'] = 60;
+        }
+        if ($request->shipment) {
+            $request['price'] += 20;
+        }
+        $expected_send = new Carbon($request->expected_send_time);
+        /*$orders = Order::where('status', '=', 'inProcess')->orWhere('status', '=', 'inQuene')->orderBy('updated_at', 'desc')->get();
+        $time = 0;
+        if (count($orders) > 1) {
+            $start = $orders->first()->updated_at;
+            $finish = $orders->last()->updated_at;
+            $time = $finish->diffInSeconds($start);
+        } 
+        $request['expected_finish_time'] =  $expected_send->addSeconds($time);*/
+        $request['expected_finish_time'] =  $expected_send->addHour(6);
+        return $request;
     }
 }

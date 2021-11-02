@@ -11,7 +11,7 @@ class UserController extends Controller
 
     public function login(Request $request)
     {
-        return User::where([['username', '=', $request->username], ['password', '=', $request->password]])->first();
+        return User::where([['email', '=', $request->email], ['password', '=', $request->password]])->first();
     }
 
     public function index()

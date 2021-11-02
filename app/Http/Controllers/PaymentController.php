@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Payment;
+use App\Models\Order;
+use App\Models\Image;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
@@ -22,6 +24,14 @@ class PaymentController extends Controller
         $payment->order_id = $request->order_id;
         $payment->image_id = $request->image_id;
         $payment->save();
+
+        $order = Order::findOrFail($request->order_id);
+        $order->payment_id = $payment->id; 
+        $order->save();
+
+        $image = Image::findOrFail($request->image_id);
+        $image->payment_id = $payment->id; 
+        $image->save();
         
         return $payment;
     }
@@ -40,7 +50,6 @@ class PaymentController extends Controller
     public function destroy($id) {
         $payment = Payment::findOrFail($id);
         $payment->delete($id);
-        //return ;
     }
 
 }
