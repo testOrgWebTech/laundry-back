@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Shipment;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -49,6 +50,13 @@ class OrderController extends Controller
         $order->shipment = $request->shipment;
         $order->weight = $request->weight;
         $order->save();
+
+        if ($request->shipment && $order->status == 'inShipmentProcess') {
+            $shipment = new Shipment();
+            //$shipment->send_time = $request->shipment;
+            $shipment->status = 'inProcess';
+            $shipment->save();
+        }
 
         return $this->index();
     }

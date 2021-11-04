@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->foreignIdFor(\App\Models\Address::class, 'address_id')->nullable();
         });
     }
 

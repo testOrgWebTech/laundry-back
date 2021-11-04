@@ -16,7 +16,7 @@ class UserController extends Controller
 
     public function index()
     {
-        return User::get();
+        return User::with('address')->get();
     }
 
     public function show($id)
@@ -38,6 +38,7 @@ class UserController extends Controller
             $user->password = $request->password;
             $user->email = $request->email;
             $user->tel = $request->tel;
+            $user->role = $request->role;
             $user->save();
 
             $address = new Address();
@@ -49,6 +50,9 @@ class UserController extends Controller
             $address->user_id = $user->id;
             $address->save();
 
+            $user->address_id = $address->id;
+            $user->save();
+
             return $user;
         }
 
@@ -57,7 +61,6 @@ class UserController extends Controller
     public function update(Request $request)
     {
         $user = User::findOrFail($request->id);
-        //
         $user->save();
 
         return $user;
